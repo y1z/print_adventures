@@ -8,11 +8,23 @@ pub enum errorTypes {
 impl errorTypes {
   pub fn desc(&self) -> String {
     match *self {
-      errorTypes::cannot_init => return String::from("could not initialize"),
-      errorTypes::opt_failed => return String::from("operation failed"),
-      errorTypes::no_error => return String::from("no error detected"),
+      errorTypes::cannot_init => String::from("could not initialize"),
+      errorTypes::opt_failed => String::from("operation failed"),
+      errorTypes::no_error => String::from("no error detected"),
 
-      _ => return String::from("unknown case"),
+      _ => String::from("unknown case"),
     }
   }
 }
+
+macro_rules! PRINT_DEBUG_INFO {
+  () => {
+    eprintln!(
+      "error in file :{}\ncolumn : {}\nline : {}\n ",
+      file!(),
+      column!(),
+      line!(),
+    );
+  };
+}
+pub(crate) use PRINT_DEBUG_INFO;
