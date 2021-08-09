@@ -35,7 +35,7 @@ pub trait FullArithmetic<T>: AdvanceArithmetic<T> + RemainderArithmetic<T> {}
 
 /// Used to indicate that your type can use the square root function
 pub trait SquareRoot<T, U = T> {
-  fn sqrt(&self) -> U;
+  fn do_sqrt(&self) -> U;
 }
 
 /// Used to indicate that you type can do this
@@ -52,31 +52,31 @@ pub trait Squared<T, U = T> {
 ///
 
 impl SquareRoot<f32, f32> for f32 {
-  fn sqrt(&self) -> f32 {
+  fn do_sqrt(&self) -> f32 {
     self.sqrt()
   }
 }
 
 impl SquareRoot<f64, f64> for f64 {
-  fn sqrt(&self) -> f64 {
+  fn do_sqrt(&self) -> f64 {
     self.sqrt()
   }
 }
 
 impl SquareRoot<i32, f32> for i32 {
-  fn sqrt(&self) -> f32 {
+  fn do_sqrt(&self) -> f32 {
     (*self as f32).sqrt()
   }
 }
 
 impl SquareRoot<i64, f64> for i64 {
-  fn sqrt(&self) -> f64 {
+  fn do_sqrt(&self) -> f64 {
     (*self as f64).sqrt()
   }
 }
 
 impl SquareRoot<u32, f32> for u32 {
-  fn sqrt(&self) -> f32 {
+  fn do_sqrt(&self) -> f32 {
     (*self as f32).sqrt()
   }
 }
