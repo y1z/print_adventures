@@ -1,7 +1,12 @@
 //use error_types::{errorTypes, PRINT_DEBUG_INFO};
 mod error_types;
+mod util {
+    pub mod util_traits;
+}
+mod vector2;
 use error_types::{errorTypes, PRINT_DEBUG_INFO};
 use terminal_size::{terminal_size, Height, Width};
+use vector2::{vector2f, vector2i};
 
 type mainReturn = Result<(), errorTypes>;
 
@@ -19,19 +24,5 @@ fn main() -> mainReturn {
 
 fn run() -> mainReturn {
     println!("\n{}", INTRO_TEXT);
-    let term_size = terminal_size();
-
-    let terminal_width = 0;
-    let terminal_height = 0;
-    if let Some((Width(terminal_width), Height(terminal_height))) = term_size {
-        println!(
-            "Your terminal is {} cols wide and {} lines tall",
-            terminal_width, terminal_height
-        );
-        assert_ne!(terminal_width, 0);
-        assert_ne!(terminal_height, 0);
-    } else {
-        println!("Unable to get terminal size");
-    }
     return Ok(());
 }
