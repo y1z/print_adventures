@@ -21,7 +21,7 @@ where
   }
 
   pub fn mag(&self) -> T {
-    return self.mag().sqrt();
+    return self.mag().do_sqrt();
   }
 }
 
