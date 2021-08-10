@@ -3,7 +3,7 @@ use std::ops::*;
 ///
 /// Trait's
 ///
-//type basicMath<T> = Add<T> + Sub<T> + Mul + Div;
+
 /// To indicate that a type 'T' implements basic arithmetic functions.
 /// : Add<Output = T
 pub trait BasicArithmetic<T>:
