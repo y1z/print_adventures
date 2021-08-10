@@ -44,7 +44,7 @@ pub trait SquareRoot<T, U = T> {
 /// let x_squared = x * x
 /// ```
 pub trait Squared<T, U = T> {
-  fn squared(&self) -> U;
+  fn do_squared(&self) -> U;
 }
 
 ///

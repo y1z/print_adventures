@@ -1,6 +1,6 @@
 use vector2;
 /// represents data that every character (player and npc's) contains in the game.
-struct characterData {
+struct commonCharacterData {
   m_pos: vector2i,
   m_health: i32,
   m_attack: i32,
