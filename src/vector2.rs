@@ -1,5 +1,4 @@
 use crate::util::util_traits::{BasicArithmetic, SquareRoot};
-use std::any::{Any, TypeId};
 use std::ops::*;
 
 /// Represents a 2d mathematical vector.
@@ -21,7 +20,7 @@ where
   }
 
   pub fn mag(&self) -> T {
-    return self.mag().do_sqrt();
+    return self.mag_sqr().do_sqrt();
   }
 }
 
