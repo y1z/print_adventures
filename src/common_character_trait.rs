@@ -1,7 +1,8 @@
 use pra_player;
 use vector2;
 
-pub trait Character {
+/// functions that every character should have.
+pub trait CommonCharacterBahavoir {
   fn get_name(&self) -> String;
   fn get_stats_string(&self) -> String;
   fn get_position(&self) -> vector2i;
