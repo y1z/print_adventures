@@ -20,7 +20,11 @@ where
   }
 
   pub fn mag(&self) -> T {
-    return self.mag_sqr().do_sqrt();
+    self.mag_sqr().do_sqrt()
+  }
+
+  pub fn dot_product(&self, other: Self) -> T {
+    (self.x * other.x) + (self.y * other.y)
   }
 }
 
