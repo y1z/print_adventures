@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 #[derive(Debug, PartialEq, PartialOrd, Clone)]
 pub enum errorTypes {
   cannot_init,

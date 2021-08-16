@@ -77,7 +77,7 @@ impl<T: Neg<Output = T>> Neg for vector2<T> {
 /**
  * Pre-made types.
  */
-pub type vector2u = vector2<u32>;
-pub type vector2i = vector2<i32>;
-pub type vector2f = vector2<f32>;
-pub type vector2d = vector2<f64>;
+pub type Vector2u = vector2<u32>;
+pub type Vector2i = vector2<i32>;
+pub type Vector2f = vector2<f32>;
+pub type Vector2d = vector2<f64>;
