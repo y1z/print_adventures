@@ -4,8 +4,7 @@ use std::ops::*;
 /// Trait's
 ///
 
-/// To indicate that a type 'T' implements basic arithmetic functions.
-/// : Add<Output = T
+/// To indicate that a type 'T' implements basic arithmetic functions aka 'add' 'sub' 'mul' 'div'.
 pub trait BasicArithmetic<T>:
   Add<Output = T> + Sub<Output = T> + Mul<Output = T> + Div<Output = T> + Copy
 {
@@ -50,7 +49,6 @@ pub trait Squared<T, U = T> {
 ///
 /// Implementation of traits for primitive types
 ///
-
 impl SquareRoot<f32, f32> for f32 {
   fn do_sqrt(&self) -> f32 {
     self.sqrt()
