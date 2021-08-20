@@ -1,4 +1,4 @@
-mod error_types;
+use crate::error_types;
 use terminal_size::{terminal_size, Height, Width};
 /// represents a grid in the game
 pub struct gameGrid {
@@ -7,8 +7,14 @@ pub struct gameGrid {
   m_height: u16,
 }
 
+macro_rules! FILL_FORMAT {
+  () => {
+    "{:%<-spaces$}"
+  };
+}
+
 impl gameGrid {
-  // used to create a grid with custom parameters.
+  /// used to create a grid with custom parameters.
   pub fn create(string: String, width: u16, height: u16) -> gameGrid {
     return gameGrid {
       m_grid: string,
@@ -23,22 +29,31 @@ impl gameGrid {
   }
 
   /// updates the grid.
-  pub fn update(&self){
-    update_terminal_size(self);
+  pub fn update(&mut self) {
+    self.update_terminal_size();
   }
 
   /// Finds out what the size of the users terminal is.
-  fn update_terminal_size(&self)  {
+  fn update_terminal_size(&mut self) {
     let term_size = terminal_size();
-
-    if let Some((Width(self.m_width), Height(self.m_height))) = term_size {
+    if let Some((Width(temp_width), Height(temp_height))) = term_size {
       println!(
         "Your terminal is {} cols wide and {} lines tall",
-        self.m_width, self.m_height
+        temp_width, temp_height
       );
+      self.m_width = temp_width;
+      self.m_height = temp_height;
       assert_ne!(self.m_width, 0);
       assert_ne!(self.m_height, 0);
-    } 
+    }
     error_types::PRINT_DEBUG_INFO!();
+  }
+
+  /// fills the grid with '%' characters .
+  pub fn fill_grid(&mut self) {
+    const FILL_ENTIRE_GRID_FORMAT: &'static str = "{:%<-spaces$}";
+    self.update_terminal_size();
+    let total_spaces = self.m_width * self.m_height;
+    self.m_grid = format!(FILL_FORMAT!(), "", spaces = total_spaces as usize);
   }
 }
