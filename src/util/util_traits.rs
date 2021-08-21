@@ -45,6 +45,27 @@ pub trait SquareRoot<T, U = T> {
 pub trait Squared<T, U = T> {
   fn do_squared(&self) -> U;
 }
+/// Returns the zero value of a type for i32 it 0 for f32 it 0.0_f32
+pub trait ZeroValue<T> {
+  fn get_zero_value() -> T;
+}
+
+///
+/// Implementation macros
+///
+
+/// implementation for default types
+macro_rules! IMPL_ZERO_VALUE_INTEGER {
+  ($($tt:ty)*) => ($(
+    impl ZeroValue<$tt> for $tt {
+      fn get_zero_value() -> $tt {
+        0
+      }
+    }
+  )*)
+}
+
+IMPL_ZERO_VALUE_INTEGER! {i8 i16 i32 i64 i128 isize u8 u16 u32 u64 u128 usize }
 
 ///
 /// Implementation of traits for primitive types
@@ -76,5 +97,17 @@ impl SquareRoot<i64, f64> for i64 {
 impl SquareRoot<u32, f32> for u32 {
   fn do_sqrt(&self) -> f32 {
     (*self as f32).sqrt()
+  }
+}
+
+impl ZeroValue<f32> for f32 {
+  fn get_zero_value() -> f32 {
+    0.0_f32
+  }
+}
+
+impl ZeroValue<f64> for f64 {
+  fn get_zero_value() -> f64 {
+    0.0_f64
   }
 }

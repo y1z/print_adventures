@@ -2,13 +2,15 @@ mod error_types;
 mod util {
     pub mod util_traits;
 }
-mod common_character_data;
+pub mod common_character_data;
+pub mod common_character_trait;
+mod game_grid;
+mod pra_enemy;
+mod pra_game_data;
+mod pra_player;
 mod vector2;
-use error_types::{errorTypes, PRINT_DEBUG_INFO};
-use terminal_size::{terminal_size, Height, Width};
-use vector2::{Vector2f, Vector2i};
-
-type mainReturn = Result<(), errorTypes>;
+use error_types::{errorTypes, mainReturn};
+use pra_game_data::gameData;
 
 const INTRO_TEXT: &str = "hello and welcome to the world of print ventures";
 
@@ -25,4 +27,8 @@ fn main() -> mainReturn {
 fn run() -> mainReturn {
     println!("\n{}", INTRO_TEXT);
     return Ok(());
+}
+
+fn init() -> gameData {
+    return gameData::new();
 }

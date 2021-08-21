@@ -1,6 +1,6 @@
-use common_character_data;
-use pra_player;
+use crate::common_character_data::commonCharacterData;
+
 /// Represents a enemy in the game
-struct enemy {
-  m_data: common_character_data,
+pub struct enemy {
+  pub m_data: commonCharacterData,
 }

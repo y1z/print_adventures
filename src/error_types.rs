@@ -29,3 +29,5 @@ macro_rules! PRINT_DEBUG_INFO {
   };
 }
 pub(crate) use PRINT_DEBUG_INFO;
+
+pub type mainReturn = Result<(), errorTypes>;

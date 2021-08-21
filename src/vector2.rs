@@ -1,11 +1,11 @@
-use crate::util::util_traits::{BasicArithmetic, SquareRoot};
+use crate::util::util_traits::{BasicArithmetic, SquareRoot, ZeroValue};
 use std::ops::*;
 
 /// Represents a 2d mathematical vector.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Vector2<T> {
-  x: T,
-  y: T,
+  pub x: T,
+  pub y: T,
 }
 
 ///
@@ -13,8 +13,16 @@ pub struct Vector2<T> {
 ///
 impl<T> Vector2<T>
 where
-  T: BasicArithmetic<T> + SquareRoot<T, T>,
+  T: BasicArithmetic<T> + SquareRoot<T, T> + ZeroValue<T>,
 {
+  pub fn create(_x: T, _y: T) -> Vector2<T> {
+    Vector2::<T> { x: _x, y: _y }
+  }
+
+  pub fn new() -> Vector2<T> {
+    Vector2::<T>::create(T::get_zero_value(), T::get_zero_value())
+  }
+
   pub fn mag_sqr(&self) -> T {
     (self.x * self.x) + (self.y * self.y)
   }

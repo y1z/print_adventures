@@ -1,6 +1,7 @@
 use crate::error_types;
 use terminal_size::{terminal_size, Height, Width};
 /// represents a grid in the game
+#[derive(Debug, Clone)]
 pub struct gameGrid {
   m_grid: String,
   m_width: u16,
@@ -18,8 +19,8 @@ impl gameGrid {
   pub fn create(string: String, width: u16, height: u16) -> gameGrid {
     return gameGrid {
       m_grid: string,
-      m_width: 0,
-      m_height: 0,
+      m_width: width,
+      m_height: height,
     };
   }
 
