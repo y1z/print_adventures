@@ -77,6 +77,7 @@ impl gameGrid {
   pub fn init(&mut self, width: u16, height: u16) {
     self.m_grid.reserve((width * height) as usize);
     self.fill_grid();
+    self.m_term.init();
   }
 
   /// fills the grid with '%' characters .
