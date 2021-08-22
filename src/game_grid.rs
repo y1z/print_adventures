@@ -84,4 +84,16 @@ impl gameGrid {
     let total_spaces = self.m_width * self.m_height;
     self.m_grid = format!(FILL_FORMAT!(), "", spaces = total_spaces as usize);
   }
+
+  pub fn print_grid(&self) {
+    let how_many_lines_to_print = (self.m_height * self.m_width) / self.m_width;
+    let offset = (self.m_term.m_terminal_width / 2) as usize;
+    for x in 0..how_many_lines_to_print {
+      let start_silce = (x * self.m_width) as usize;
+      let end_silce = start_silce + self.m_width as usize;
+      let silce = &self.m_grid[start_silce..end_silce];
+      print!("{:<space$}", "", space = offset);
+      print!("{}\n", silce);
+    }
+  }
 }
