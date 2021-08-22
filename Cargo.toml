@@ -1,0 +1,11 @@
+[package]
+name = "print_rouge_ad"
+version = "0.1.0"
+authors = ["y1z <whyis2cool@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# create to terminal_size : https://crates.io/crates/terminal_size
+terminal_size = "0.1.17"
