@@ -31,7 +31,7 @@ fn main() -> mainReturn {
 fn run() -> mainReturn {
     println!("\n{}", INTRO_TEXT);
     let mut game_data = init();
-    println!("here is the current game data {:#?}", game_data);
+    game_data.m_grid.print_grid();
     Ok(())
 }
 
