@@ -1,5 +1,6 @@
 use crate::game_grid::gameGrid;
 use crate::pra_player::player;
+use std::fs;
 
 /// Represent the data that the game needs to function.
 #[derive(Debug, Clone)]
@@ -22,7 +23,7 @@ impl gameData {
     gameData::create(gameGrid::new(), player::new())
   }
 
-  pub fn init(&mut self) {
-    self.m_grid = gameGrid::new();
+  pub fn init(&mut self, width: u16, height: u16, _file: fs::File) {
+    self.m_grid.init(width, height);
   }
 }
