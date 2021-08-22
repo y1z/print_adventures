@@ -5,7 +5,7 @@ use std::fs;
 /// Represent the data that the game needs to function.
 #[derive(Debug, Clone)]
 pub struct gameData {
-  m_grid: gameGrid,
+  pub m_grid: gameGrid,
   m_player: player,
 }
 
