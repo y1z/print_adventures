@@ -62,13 +62,11 @@ impl terminalInfo {
 impl gameGrid {
   /// used to create a grid with custom parameters.
   pub fn create(string: String, width: u16, height: u16) -> gameGrid {
-    let mut terminal_info = terminalInfo::new();
-    terminal_info.init();
     return gameGrid {
       m_grid: string,
       m_width: width,
       m_height: height,
-      m_term: terminal_info,
+      m_term: terminalInfo::new(),
     };
   }
 
