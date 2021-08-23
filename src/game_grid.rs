@@ -1,4 +1,4 @@
-use crate::error_types;
+use crate::error_types::PRINT_DEBUG_INFO;
 use crate::vector2::Vector2u;
 use terminal_size::{terminal_size, Height, Width};
 
@@ -33,25 +33,29 @@ impl terminalInfo {
   }
   /// Finds out what the size of the users terminal is.
   fn get_terminal_size() -> (u16, u16) {
-    let term_size = terminal_size();
     let mut result: (u16, u16) = (0, 0);
-    if let Some((Width(result_width), Height(result_height))) = term_size {
-      assert_ne!(result_width, 0);
-      assert_ne!(result_height, 0);
-      result = (result_width, result_height);
+    let term_size = terminal_size();
+    if let Some((Width(w), Height(h))) = term_size {
+      println!("Your terminal is {} cols wide and {} lines tall", w, h);
+      result.0 = w;
+      result.1 = h;
+    } else {
+      println!("Unable to get terminal size");
+      PRINT_DEBUG_INFO!();
     }
     result
   }
 
   /// Set's the terminal size
-  fn set_terminal_size(&mut self, new_term_size: (u16, u16)) {
-    self.m_terminal_height = new_term_size.0;
-    self.m_terminal_width = new_term_size.1;
+  fn set_terminal_size(&mut self, new_term_width: u16, new_term_height: u16) {
+    self.m_terminal_height = new_term_height;
+    self.m_terminal_width = new_term_width;
   }
 
   /// Initalizes the 'terminalInfo' struct
   pub fn init(&mut self) {
-    self.set_terminal_size(terminalInfo::get_terminal_size());
+    let new_term_size = terminalInfo::get_terminal_size();
+    self.set_terminal_size(new_term_size.0, new_term_size.1);
   }
 }
 
@@ -93,8 +97,13 @@ impl gameGrid {
       let start_silce = (x * self.m_width) as usize;
       let end_silce = start_silce + self.m_width as usize;
       let silce = &self.m_grid[start_silce..end_silce];
-      print!("{:<space$}", "", space = offset);
-      print!("{}\n", silce);
+      print!(
+        "{:|<space$}",
+        "",
+        space = self.m_term.m_terminal_width as usize
+      );
+      print!("{}", silce);
+      //print!("{:<space$}", "", space = offset);
     }
   }
 }
