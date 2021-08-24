@@ -18,6 +18,10 @@ impl errorTypes {
   }
 }
 
+///
+///  MACROS
+///
+/// Print basic debug information aka where the error is located
 macro_rules! PRINT_DEBUG_INFO {
   () => {
     eprintln!(
@@ -29,5 +33,20 @@ macro_rules! PRINT_DEBUG_INFO {
   };
 }
 pub(crate) use PRINT_DEBUG_INFO;
+
+/// Print basic debug information aka where the error is located and also panics
+macro_rules! PANIC_WITH_DEBUG_INFO {
+  ($message:literal) => {
+    eprintln!(
+      "error in file :{}\ncolumn : {}\nline : {}\n ",
+      file!(),
+      column!(),
+      line!(),
+    );
+    panic!($message);
+  };
+}
+
+pub(crate) use PANIC_WITH_DEBUG_INFO;
 
 pub type mainReturn = Result<(), errorTypes>;
