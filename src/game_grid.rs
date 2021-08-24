@@ -1,7 +1,7 @@
-use crate::error_types::PRINT_DEBUG_INFO;
+use crate::error_types::{PANIC_WITH_DEBUG_INFO, PRINT_DEBUG_INFO};
+use crate::player;
 use crate::vector2::Vector2u;
 use terminal_size::{terminal_size, Height, Width};
-
 /// represents the data from the terminal
 #[derive(Debug, Clone)]
 pub struct terminalInfo {
@@ -86,6 +86,18 @@ impl gameGrid {
   pub fn fill_grid(&mut self) {
     let total_spaces = self.m_width * self.m_height;
     self.m_grid = format!(FILL_FORMAT!(), "", spaces = total_spaces as usize);
+  }
+
+  pub fn insert_player(&mut self, the_player: &player) {
+    let player_pos = &the_player.m_data.m_pos;
+    if player_pos.x >= self.m_width as i32 || player_pos.y >= self.m_height as i32 {
+      PANIC_WITH_DEBUG_INFO!("out of bounds error");
+    }
+    let grid_index = ((player_pos.y * self.m_width as i32) + player_pos.x) as usize;
+    let char_to_replace_index = self.m_grid.char_indices().nth(grid_index).unwrap().0;
+    self
+      .m_grid
+      .replace_range(char_to_replace_index..char_to_replace_index, "p");
   }
 
   pub fn print_grid(&self) {
