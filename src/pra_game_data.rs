@@ -6,7 +6,7 @@ use std::fs;
 #[derive(Debug, Clone)]
 pub struct gameData {
   pub m_grid: gameGrid,
-  m_player: player,
+  pub m_player: player,
 }
 
 impl gameData {
