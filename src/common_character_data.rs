@@ -41,4 +41,8 @@ impl commonCharacterData {
       6,
     )
   }
+
+  pub fn move_by(&mut self, offset: Vector2i) {
+    self.m_pos = self.m_pos + offset;
+  }
 }
