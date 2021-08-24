@@ -14,8 +14,9 @@ use game_grid::gameGrid;
 use pra_game_data::gameData;
 use pra_player::player;
 
-const INTRO_TEXT: &str = "hello and welcome to the world of print ventures";
-const DEFAULT_WIDTH: u16 = 10;
+const INTRO_TEXT: &'static str = "hello and welcome to the world of print ventures";
+const FILE_NAME: &'static str = "test_level";
+const DEFAULT_WIDTH: u16 = 21;
 const DEFAULT_HEIGHT: u16 = 10;
 
 fn main() -> mainReturn {
@@ -31,17 +32,16 @@ fn main() -> mainReturn {
 fn run() -> mainReturn {
     println!("\n{}", INTRO_TEXT);
     let mut game_data = init();
+    game_data.m_grid.insert_player(&game_data.m_player);
     game_data.m_grid.print_grid();
     Ok(())
 }
 
 fn init() -> gameData {
-    const TEMP_DEFAULT_WIDTH: u16 = 15;
-    const TEMP_DEFAULT_HEIGHT: u16 = 15;
     let grid = gameGrid::create(String::from(""), DEFAULT_WIDTH, DEFAULT_HEIGHT);
     let _player = player::new();
     let mut game_data = gameData::create(grid, _player);
-    let _test_file_path = std::fs::File::create("hello").unwrap();
-    game_data.init(TEMP_DEFAULT_WIDTH, TEMP_DEFAULT_HEIGHT, _test_file_path);
+    let _test_file_path = std::fs::File::create(FILE_NAME).unwrap();
+    game_data.init(DEFAULT_WIDTH, DEFAULT_HEIGHT, _test_file_path);
     game_data
 }
