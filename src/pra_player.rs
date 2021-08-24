@@ -5,7 +5,7 @@ use crate::pra_enemy;
 /// Represent the player
 #[derive(Debug, Clone)]
 pub struct player {
-  m_data: commonCharacterData,
+  pub m_data: commonCharacterData,
 }
 
 impl player {
