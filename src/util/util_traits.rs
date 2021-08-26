@@ -8,7 +8,10 @@ use std::ops::*;
 pub trait BasicArithmetic<T>:
   Add<Output = T> + Sub<Output = T> + Mul<Output = T> + Div<Output = T> + Copy
 {
-  type Output;
+  fn basic_add(&self, other: Self) -> T;
+  fn basic_sub(&self, other: Self) -> T;
+  fn basic_mul(&self, other: Self) -> T;
+  fn basic_div(&self, other: Self) -> T;
 }
 
 /// To indicate that a type 'T' implements basic arithmetic functions and the remainder function.
@@ -67,6 +70,28 @@ macro_rules! IMPL_ZERO_VALUE_INTEGER {
 
 IMPL_ZERO_VALUE_INTEGER! {i8 i16 i32 i64 i128 isize u8 u16 u32 u64 u128 usize }
 
+macro_rules! IMPL_BASIC_ARITHMETIC{
+  ($($tt:ty)*) => ($(
+    impl BasicArithmetic<$tt> for $tt {
+      fn basic_add(&self, other: Self) -> $tt{
+        self.add(other)
+      }
+      fn basic_sub(&self, other: Self) -> $tt{
+        self.sub(other)
+      }
+
+      fn basic_mul(&self, other: Self) -> $tt{
+        self.mul(other)
+      }
+
+      fn basic_div(&self, other: Self) -> $tt{
+        self.div(other)
+      }
+    }
+  )*)
+}
+IMPL_BASIC_ARITHMETIC! {i8 i16 i32 i64 i128 isize u8 u16 u32 u64 u128 usize }
+
 ///
 /// Implementation of traits for primitive types
 ///
@@ -82,9 +107,9 @@ impl SquareRoot<f64, f64> for f64 {
   }
 }
 
-impl SquareRoot<i32, f32> for i32 {
-  fn do_sqrt(&self) -> f32 {
-    (*self as f32).sqrt()
+impl SquareRoot<i32, i32> for i32 {
+  fn do_sqrt(&self) -> i32 {
+    ((*self as f32).sqrt()) as i32
   }
 }
 
