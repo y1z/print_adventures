@@ -42,6 +42,7 @@ impl commonCharacterData {
     )
   }
 
+  /// move the character by the amount given in the 'offset'
   pub fn move_by(&mut self, offset: Vector2i) {
     self.m_pos = self.m_pos + offset;
   }
