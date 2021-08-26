@@ -13,9 +13,11 @@ use error_types::{errorTypes, mainReturn};
 use game_grid::gameGrid;
 use pra_game_data::gameData;
 use pra_player::player;
+use std::io::Read;
+use std::path::Path;
 
 const INTRO_TEXT: &'static str = "hello and welcome to the world of print ventures";
-const FILE_NAME: &'static str = "../resource/test_level";
+const DIRECTORY: &'static str = "resource/";
 const DEFAULT_WIDTH: u16 = 21;
 const DEFAULT_HEIGHT: u16 = 10;
 
@@ -32,16 +34,41 @@ fn main() -> mainReturn {
 fn run() -> mainReturn {
   println!("\n{}", INTRO_TEXT);
   let mut game_data = init();
-  game_data.m_grid.insert_player(&game_data.m_player);
-  game_data.m_grid.print_grid();
+
+  let mut input = std::io::stdin();
+  let mut buffer = String::new();
+  loop {
+    buffer.clear();
+    input.read_line(&mut buffer).unwrap();
+    game_data.m_grid.print_grid();
+
+    println!("buffer = [ {} ]", buffer);
+    if buffer.find("q").is_some() || buffer.find("Q").is_some() {
+      println!("breaking out of loop");
+      break;
+    }
+  }
+
   Ok(())
+}
+
+#[allow(dead_code)]
+fn print_every_directory_path() {
+  let every_entry = std::fs::read_dir(".");
+  if every_entry.is_ok() {
+    for entry in every_entry.unwrap() {
+      let dir = entry.unwrap();
+      println!("{:?}", dir.path());
+    }
+  }
 }
 
 fn init() -> gameData {
   let grid = gameGrid::create(String::from(""), DEFAULT_WIDTH, DEFAULT_HEIGHT);
-  let _player = player::new();
-  let mut game_data = gameData::create(grid, _player);
-  let _test_file_path = std::fs::File::create(FILE_NAME).unwrap();
-  game_data.init(DEFAULT_WIDTH, DEFAULT_HEIGHT, _test_file_path);
+  let player = player::new();
+  let mut game_data = gameData::create(grid, player);
+  let path = Path::new(DIRECTORY).join("test_level");
+  let _file = std::fs::File::open(path).unwrap();
+  game_data.init(DEFAULT_WIDTH, DEFAULT_HEIGHT, _file);
   game_data
 }
