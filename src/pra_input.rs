@@ -35,11 +35,11 @@ pub fn read_user_input_string() -> String {
 }
 
 /// @returns a string that contain the input of the user
-pub fn recieve_input_command_from_string(input_string: &String) -> Option<CommandData> {
+pub fn recieve_movement_command_from_string(input_string: &String) -> Option<Vector2i> {
   for commond in g_command_strings.iter() {
     let index = input_string.find(commond.key);
     if index.is_some() {
-      return Some(*commond);
+      return Some(commond.value);
     }
   }
 
